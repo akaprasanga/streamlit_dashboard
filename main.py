@@ -9,5 +9,5 @@ conn = st.experimental_connection('s3', type=FilesConnection)
 df = conn.read("streamlit-maket-data/test-data/dummy_data.csv", input_format="csv", ttl=600)
 
 # Print results.
-for row in df.itertuples():
-    st.write(f"{row.Owner} has a :{row.Pet}:")
+# for row in df.itertuples():
+#     st.write(f"{row.Owner} has a :{row.Pet}:")

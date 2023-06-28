@@ -18,7 +18,7 @@ def read_file(filename):
 
 content = read_file("streamlit-maket-data/test-data/dummy_data.csv")
 
-st.print(content)
+st.write(content)
 
 # Print results.
 # for row in df.itertuples():

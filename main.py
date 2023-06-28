@@ -3,9 +3,20 @@ import os
 import s3fs
 import streamlit as st
 from st_files_connection import FilesConnection
+import boto3
+import pandas as pd
+
 st.header("Welcome to the dashboard!")
 
+s3 = boto3.resource('s3', aws_access_key_id=st.secrets['AWS_ACCESS_KEY_ID'], aws_secret_access_key=st.secrets['AWS_SECRET_ACCESS_KEY'])  
+bucket_name = s3.bucket(st.secrets['BUCKET_NAME'])
+s3_filename = 'test-data/dummy_data.csv'
+obj = s3.Object(bucket_name, s3_filename)
 
+initial_df = pd.read_csv(obj['Body'])
+
+st.stop()
+st.write(initial_df)
 # Create connection object.
 # `anon=False` means not anonymous, i.e. it uses access keys to pull data.
 fs = s3fs.S3FileSystem(anon=False)

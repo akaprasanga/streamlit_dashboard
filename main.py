@@ -1,12 +1,24 @@
 # streamlit_app.py
-
+import os
 import streamlit as st
 from st_files_connection import FilesConnection
 st.header("Welcome to the dashboard!")
-# Create connection object and retrieve file contents.
-# Specify input format is a csv and to cache the result for 600 seconds.
-conn = st.experimental_connection('s3', type=FilesConnection)
-df = conn.read("streamlit-maket-data/test-data/dummy_data.csv", input_format="csv", ttl=600)
+
+
+# Create connection object.
+# `anon=False` means not anonymous, i.e. it uses access keys to pull data.
+fs = s3fs.S3FileSystem(anon=False)
+
+# Retrieve file contents.
+# Uses st.experimental_memo to only rerun when the query changes or after 10 min.
+@st.experimental_memo(ttl=600)
+def read_file(filename):
+    with fs.open(filename) as f:
+        return f.read().decode("utf-8")
+
+content = read_file("streamlit-maket-data/test-data/dummy_data.csv")
+
+st.print(content)
 
 # Print results.
 # for row in df.itertuples():

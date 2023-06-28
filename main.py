@@ -15,6 +15,6 @@ if file_obj['ResponseMetadata']['HTTPStatusCode'] == 200:
     st.write('Success')
     file_content = file_obj['Body']
     df = pd.read_csv(file_content)
-    st.write(df.head())
+    st.write(df)
 else:
     st.write('Error loading data from S3')

@@ -9,8 +9,6 @@ import pandas as pd
 st.header("Welcome to the Market dashboard!")
 
 s3 = boto3.client('s3', aws_access_key_id=st.secrets['AWS_ACCESS_KEY_ID'], aws_secret_access_key=st.secrets['AWS_SECRET_ACCESS_KEY'])  
-bucket_name = s3.bucket(st.secrets['BUCKET_NAME'])
-
 file_obj = s3.get_object(Bucket =st.secrets['BUCKET_NAME'], Key=st.secrets['FILE_PATH'])
 
 if file_obj['ResponseMetadata']['HTTPStatusCode'] == 200:

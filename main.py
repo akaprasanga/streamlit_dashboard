@@ -1,5 +1,6 @@
 # streamlit_app.py
 import os
+import s3fs
 import streamlit as st
 from st_files_connection import FilesConnection
 st.header("Welcome to the dashboard!")
